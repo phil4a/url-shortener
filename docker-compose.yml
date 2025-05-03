@@ -1,0 +1,29 @@
+services:
+  nestjs_starter_postgres: #Needs update
+    image: postgres:alpine
+    container_name: nestjs_starter_postgres #Needs update
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - nestjs_starter_postgres_data:/var/lib/postgresql/data #Needs update
+
+  nestjs_starter_redis: #Needs update
+    image: redis:alpine
+    container_name: nestjs_starter_redis #Needs update
+    ports:
+      - 6379:6379
+    volumes:
+      - nestjs_starter_redis_data:/data #Needs update
+
+networks:
+  default:
+    name: nestjs_starter #Needs update
+
+volumes:
+  nestjs_starter_postgres_data: #Needs update
+  nestjs_starter_redis_data: #Needs update

@@ -1,0 +1,17 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": "(.e2e-spec.ts$|.int-spec.ts)",
+  "moduleNameMapper": {
+    "^@src/(.*)$": "<rootDir>/../src/$1",
+    "^@core/(.*)$": "<rootDir>/../src/core/$1",
+    "^@database/(.*)$": "<rootDir>/../src/database/$1",
+    "^@config/(.*)$": "<rootDir>/../src/config/$1",
+    "^@cache/(.*)$": "<rootDir>/../src/core/cache/$1"
+  },
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "setupFilesAfterEnv": ["<rootDir>/setup.ts"]
+}
