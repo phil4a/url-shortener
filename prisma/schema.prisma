@@ -1,0 +1,22 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "generated/prisma/client"
+  binaryTargets = ["native", "windows"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Url {
+  id          Int     @id @default(autoincrement())
+  redirect    String
+  url         String  @unique
+  title       String
+  description String?
+  clicks      Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
