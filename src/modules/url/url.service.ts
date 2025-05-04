@@ -4,7 +4,6 @@ import { UpdateUrlDto } from './dto/update-url.dto';
 import { UidService } from '@src/services/uid/uid.service';
 import { DatabaseService } from '@src/database/database.service';
 import { ConfigService } from '@nestjs/config';
-import { Url } from 'prisma/generated/prisma/client';
 
 @Injectable()
 export class UrlService {
@@ -40,17 +39,23 @@ export class UrlService {
     });
   }
 
-  update(uid: string, updateUrlDto: UpdateUrlDto) {
-    return `This action updates a #${uid} url`;
+  async update(id: number, updateUrlDto: UpdateUrlDto) {
+    return await this.databaseService.url.update({
+      where: { id },
+      data: updateUrlDto,
+    });
   }
 
-  remove(uid: string) {
-    return `This action removes a #${uid} url`;
+  async remove(id: number) {
+    return await this.databaseService.url.delete({
+      where: { id },
+    });
   }
-  async incrementClicks(url: Url) {
+
+  async incrementClicks(id: number) {
     return await this.databaseService.url.update({
       where: {
-        id: url.id,
+        id,
       },
       data: {
         clicks: {
