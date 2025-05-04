@@ -4,6 +4,7 @@ import { UpdateUrlDto } from './dto/update-url.dto';
 import { UidService } from '@src/services/uid/uid.service';
 import { DatabaseService } from '@src/database/database.service';
 import { ConfigService } from '@nestjs/config';
+import { Url } from 'prisma/generated/prisma/client';
 
 @Injectable()
 export class UrlService {
@@ -33,15 +34,28 @@ export class UrlService {
     return `This action returns all url`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} url`;
+
+  async findOne(uid: string) {
+    return await this.databaseService.url.findUnique({
+      where: { url: `${this.host}/${uid}` }
+    })
   }
 
-  update(id: number, updateUrlDto: UpdateUrlDto) {
-    return `This action updates a #${id} url`;
+  update(uid: string, updateUrlDto: UpdateUrlDto) {
+    return `This action updates a #${uid} url`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} url`;
+  remove(uid: string) {
+    return `This action removes a #${uid} url`;
+  }
+  async incrementClicks(url: Url) {
+    return this.databaseService.url.update({
+      where: { id: url.id },
+      data: {
+        clicks: {
+          increment: 1
+        }
+      }
+    });
   }
 }
