@@ -12,8 +12,9 @@ import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
 import { UpdateUrlDto } from './dto/update-url.dto';
 import { Response } from 'express';
-import { UrlExistsPipe } from './pipes/url-exists/url-exists.pipe';
+
 import { Url } from 'prisma/generated/prisma/client';
+import { UrlExistsPipe } from '@modules/url/pipes/url-exists/url-exists.pipe';
 
 @Controller()
 export class UrlController {
@@ -30,13 +31,16 @@ export class UrlController {
   }
 
   @Get(':uid')
-  async findOne(@Param('uid', UrlExistsPipe) url: Url, @Res() res: Response) {
-    // this.urlService.incrementClicks(url);
-    return res.redirect(url.redirect); 
+  findOne(@Param('uid', UrlExistsPipe) url: Url, @Res() res: Response) {
+    this.urlService.incrementClicks(url);
+    return res.redirect(url.redirect);
   }
 
   @Patch('url/:uid')
-  update(@Param('uid', UrlExistsPipe) url: Url, @Body() updateUrlDto: UpdateUrlDto) {
+  update(
+    @Param('uid', UrlExistsPipe) url: Url,
+    @Body() updateUrlDto: UpdateUrlDto,
+  ) {
     return this.urlService.update(`url`, updateUrlDto);
   }
 

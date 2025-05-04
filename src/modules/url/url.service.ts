@@ -34,11 +34,10 @@ export class UrlService {
     return `This action returns all url`;
   }
 
-
   async findOne(uid: string) {
     return await this.databaseService.url.findUnique({
-      where: { url: `${this.host}/${uid}` }
-    })
+      where: { url: `${this.host}/${uid}` },
+    });
   }
 
   update(uid: string, updateUrlDto: UpdateUrlDto) {
@@ -49,13 +48,15 @@ export class UrlService {
     return `This action removes a #${uid} url`;
   }
   async incrementClicks(url: Url) {
-    return this.databaseService.url.update({
-      where: { id: url.id },
+    return await this.databaseService.url.update({
+      where: {
+        id: url.id,
+      },
       data: {
         clicks: {
-          increment: 1
-        }
-      }
+          increment: 1,
+        },
+      },
     });
   }
 }

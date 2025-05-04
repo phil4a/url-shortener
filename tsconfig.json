@@ -23,8 +23,11 @@
       "@src/*": ["src/*"],
       "@core/*": ["src/core/*"],
       "@database/*": ["src/database/*"],
+      "@cache/*": ["src/core/cache/*"],
+      "@utils/*": ["src/utils/*"],
       "@config/*": ["src/config/*"],
-      "@cache/*": ["src/core/cache/*"]
+      "@modules/*": ["src/modules/*"],
+      "@services/*": ["src/utils/*"]
     }
   }
 }
