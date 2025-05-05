@@ -8,6 +8,7 @@ import {
   Delete,
   Res,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
@@ -16,17 +17,20 @@ import { Response } from 'express';
 import { Url } from 'prisma/generated/prisma/client';
 import { UrlExistsPipe } from '@modules/url/pipes/url-exists/url-exists.pipe';
 import { GetUrlDto } from './dto/get-url.dto';
+import { AuthGuard } from '@src/auth/auth.guard';
 
 @Controller()
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}
 
   @Post('url')
+  @UseGuards(AuthGuard)
   create(@Body() createUrlDto: CreateUrlDto) {
     return this.urlService.create(createUrlDto);
   }
 
   @Get('url')
+  @UseGuards(AuthGuard)
   findAll(@Query() queryParams: GetUrlDto) {
     return this.urlService.findAll(queryParams);
   }
@@ -38,6 +42,7 @@ export class UrlController {
   }
 
   @Patch('url/:uid')
+  @UseGuards(AuthGuard)
   update(
     @Param('uid', UrlExistsPipe) url: Url,
     @Body() updateUrlDto: UpdateUrlDto,
@@ -46,6 +51,7 @@ export class UrlController {
   }
 
   @Delete('url/:uid')
+  @UseGuards(AuthGuard)
   remove(@Param('uid', UrlExistsPipe) url: Url) {
     return this.urlService.remove(+url.id);
   }
