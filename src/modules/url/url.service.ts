@@ -5,6 +5,7 @@ import { UidService } from '@src/services/uid/uid.service';
 import { DatabaseService } from '@src/database/database.service';
 import { ConfigService } from '@nestjs/config';
 import { GetUrlDto } from './dto/get-url.dto';
+import { PaginationService } from '@src/services/pagination/pagination.service';
 
 @Injectable()
 export class UrlService {
@@ -13,6 +14,7 @@ export class UrlService {
     private readonly uidService: UidService,
     private readonly databaseService: DatabaseService,
     private readonly configService: ConfigService,
+    private readonly paginationService: PaginationService,
   ) {}
 
   onModuleInit() {
@@ -30,61 +32,8 @@ export class UrlService {
     return url;
   }
 
-  async findAll({ filter, page = 1, limit = 10 }: GetUrlDto) {
-    const whereClause = filter
-      ? {
-          OR: [
-            {
-              title: {
-                contains: filter,
-                mode: 'insensitive' as const,
-              },
-            },
-            {
-              description: {
-                contains: filter,
-                mode: 'insensitive' as const,
-              },
-            },
-            {
-              url: {
-                contains: filter,
-                mode: 'insensitive' as const,
-              },
-            },
-          ],
-        }
-      : {};
-    const skip = (page - 1) * limit;
-
-    const urls = await this.databaseService.url.findMany({
-      where: whereClause,
-      take: limit,
-      skip: skip,
-    });
-
-    const totalCount = await this.databaseService.url.count({
-      where: whereClause,
-    });
-
-    let baseUrl = `${this.host}/url?limit=${limit}`;
-    if (filter) {
-      baseUrl += `&filter=${encodeURIComponent(filter)}`;
-    }
-
-    const totalPages = Math.ceil(totalCount / limit);
-    const nextPage = page < totalPages ? `${baseUrl}&page=${page + 1}` : null;
-    const prevPage = page > 1 ? `${baseUrl}&page=${page - 1}` : null;
-
-    const meta = {
-      totalCount,
-      currentPage: page,
-      perPage: limit,
-      totalPages,
-      nextPage,
-      prevPage,
-    };
-
+  async findAll(dto: GetUrlDto) {
+    const { meta, urls } = await this.paginationService.getPagination(dto);
     return {
       data: urls,
       meta,
