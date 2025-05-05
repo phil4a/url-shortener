@@ -1,8 +1,8 @@
-import { ConfigService } from '@nestjs/config';
-import { AuthGuard } from './auth.guard';
-import { createMock, DeepMocked } from '@golevelup/ts-jest';
+import { DeepMocked, createMock } from '@golevelup/ts-jest';
 import { ExecutionContext, UnauthorizedException } from '@nestjs/common';
-import { TEST_API_KEY } from '@src/config/constants/test-constants';
+import { ConfigService } from '@nestjs/config';
+import { TEST_API_KEY } from '@src/constants/test-constants';
+import { AuthGuard } from './auth.guard';
 
 describe('AuthGuard', () => {
   let authGuard: AuthGuard;
