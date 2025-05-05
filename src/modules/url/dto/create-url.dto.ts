@@ -10,6 +10,5 @@ export class CreateUrlDto {
 
   @IsString()
   @IsOptional()
-  @IsNotEmpty()
   description?: string;
 }
