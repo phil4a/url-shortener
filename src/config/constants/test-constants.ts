@@ -1,0 +1,1 @@
+export const TEST_API_KEY = 'TEST_API_KEY_FOR_UNIT_TESTS_ONLY';
