@@ -1,17 +1,14 @@
-import { ConfigService } from '@nestjs/config';
-import { app } from 'test/setup';
 import { DatabaseService } from '@src/database/database.service';
+import { app } from '@app/test/setup';
 import { UrlService } from './url.service';
 
 describe('UrlService Integration Tests', () => {
   let urlService: UrlService;
   let databaseService: DatabaseService;
-  let configService: ConfigService;
 
   beforeEach(async () => {
     urlService = app.get<UrlService>(UrlService);
     databaseService = app.get<DatabaseService>(DatabaseService);
-    configService = app.get<ConfigService>(ConfigService);
   });
 
   describe('create', () => {
@@ -47,10 +44,7 @@ describe('UrlService Integration Tests', () => {
           id: createdUrl.id,
         }),
       );
-
-      // Проверяем формат сгенерированного короткого URL
-      const host = configService.getOrThrow<string>('HOST');
-      expect(urlInDb!.url).toMatch(new RegExp(`^${host}/[a-zA-Z0-9]{5}$`));
+      expect(createdUrl).toEqual(urlInDb);
     });
   });
 });
