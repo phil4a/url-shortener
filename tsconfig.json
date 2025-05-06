@@ -20,6 +20,7 @@
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
+      "@app/*": ["./*"],
       "@src/*": ["src/*"],
       "@core/*": ["src/core/*"],
       "@database/*": ["src/database/*"],

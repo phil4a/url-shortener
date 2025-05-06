@@ -8,7 +8,10 @@
     "^@core/(.*)$": "<rootDir>/../src/core/$1",
     "^@database/(.*)$": "<rootDir>/../src/database/$1",
     "^@config/(.*)$": "<rootDir>/../src/config/$1",
-    "^@cache/(.*)$": "<rootDir>/../src/core/cache/$1"
+    "^@cache/(.*)$": "<rootDir>/../src/core/cache/$1",
+    "^@utils/(.*)$": "<rootDir>/../src/utils/$1",
+    "^@modules/(.*)$": "<rootDir>/../src/modules/$1",
+    "^@services/(.*)$": "<rootDir>/../src/services/$1"
   },
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
