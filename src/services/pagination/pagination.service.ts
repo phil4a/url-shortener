@@ -14,7 +14,10 @@ export class PaginationService {
   onModuleInit() {
     this.host = this.configService.getOrThrow<string>('HOST');
   }
-  async getPagination({ filter, limit = 10, page = 1 }: GetUrlDto) {
+  async getPagination( dto:GetUrlDto ) {
+    const page = dto.page || 1;
+    const limit = dto.limit || 10;
+    const filter = dto.filter || '';
     const whereClause = filter
       ? {
           OR: [
