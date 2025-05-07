@@ -31,6 +31,13 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
+  await databaseService.$disconnect?.();
+
+  if (server) {
+    await new Promise<void>((resolve) => {
+      server.close(() => resolve());
+    });
+  }
   await app.close();
 });
 
