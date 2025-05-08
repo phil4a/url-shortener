@@ -20,6 +20,6 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
       - name: Deploy to Railway
-        run: railway up --service="nest-starter"
+        run: railway up --service="nest-url-shortener"
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
