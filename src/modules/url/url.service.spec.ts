@@ -32,7 +32,7 @@ describe('UrlService', () => {
   let uidService: DeepMocked<UidService>;
   let configService: DeepMocked<ConfigService>;
   let databaseService: DeepMockProxy<DatabaseService>;
-  let host = 'localhost:3000';
+  const host = 'localhost:3000';
   let paginationService: DeepMockProxy<PaginationService>;
 
   beforeEach(async () => {

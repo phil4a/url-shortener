@@ -27,7 +27,7 @@ describe('UrlExistsPipe', () => {
   });
 
   it('should return redirectUrl', async () => {
-    let url: Url = {
+    const url: Url = {
       id: 1,
       redirect: 'https://instagram.com',
       url: 'localhost:3000/random-url',
