@@ -7,10 +7,9 @@ runs:
       uses: actions/checkout@v3
     - name: Install Node.js
       uses: actions/setup-node@v3
-    - name: Set up pnpm
-      uses: pnpm/action-setup@v2
       with:
-        version: latest
+        node-version: 20
+        cache: npm
     - name: Install dependencies
       shell: bash
-      run: pnpm install
+      run: npm ci
