@@ -25,7 +25,7 @@ describe('UrlController (e2e)', () => {
     it('should return 401 if invalid api key provided', async () => {
       await request(server)
         .post('/url')
-        .set('x-api-key', 'invadid-api')
+        .set('x-api-key', 'invalid-api')
         .expect(401);
     });
 
