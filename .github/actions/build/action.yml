@@ -9,7 +9,6 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: 20
-        cache: pnpm
     - name: Set up pnpm
       uses: pnpm/action-setup@v2
       with:
