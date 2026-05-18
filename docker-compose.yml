@@ -10,7 +10,7 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
-      - url_shortener_postgres_data:/var/lib/postgresql/data #Needs update
+      - url_shortener_postgres_data:/var/lib/postgresql #Needs update
 
   url_shortener_redis: #Needs update
     image: redis:alpine

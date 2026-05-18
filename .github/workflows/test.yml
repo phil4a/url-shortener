@@ -17,13 +17,18 @@ jobs:
 
   e2e-tests:
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: starter
+      POSTGRES_PORT: 5444
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/build
       - name: Start test services
         run: pnpm run docker:start:test
       - name: Show containers
-        run: docker compose -f docker-compose-test.yml ps
+        run: docker compose --env-file .env.test -f docker-compose-test.yml ps
       - name: Wait for database
         run: pnpm run wait-for-db
       - name: Apply test migrations
@@ -33,14 +38,9 @@ jobs:
       - name: Show service logs (on failure)
         if: failure()
         run: |
-          docker compose -f docker-compose-test.yml ps
-          docker compose -f docker-compose-test.yml logs --no-color --tail 200 url_shortener_test_postgres
-          docker compose -f docker-compose-test.yml logs --no-color --tail 200 url_shortener_test_redis
+          docker compose --env-file .env.test -f docker-compose-test.yml ps
+          docker compose --env-file .env.test -f docker-compose-test.yml logs --no-color --tail 200 url_shortener_test_postgres
+          docker compose --env-file .env.test -f docker-compose-test.yml logs --no-color --tail 200 url_shortener_test_redis
       - name: Stop test services
         if: always()
         run: pnpm run docker:down:test
-        env:
-          POSTGRES_USER: username
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: starter
-          POSTGRES_PORT: 5444

@@ -20,7 +20,7 @@ services:
       retries: 60
       start_period: 5s
     volumes:
-      - url_shortener_test_postgres_data:/var/lib/postgresql/data #Needs update
+      - url_shortener_test_postgres_data:/var/lib/postgresql #Needs update
 
   url_shortener_test_redis: #Needs update
     image: redis:alpine
