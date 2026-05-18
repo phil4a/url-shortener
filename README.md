@@ -75,6 +75,30 @@ curl -X POST http://localhost:3000/url ^
   -d "{\"redirect\":\"https://example.com\",\"title\":\"Example\",\"description\":\"optional\"}"
 ```
 
+Пример для прод-домена (ответ укорочен для читаемости):
+
+```bash
+curl -X POST https://url.dphil.ru/url ^
+  -H "Content-Type: application/json" ^
+  -H "x-api-key: YOUR_API_KEY" ^
+  -d "{\"redirect\":\"https://example.com\",\"title\":\"Example\",\"description\":\"optional\"}"
+```
+
+Пример ответа:
+
+```json
+{
+  "id": 1,
+  "redirect": "https://example.com",
+  "url": "https://url.dphil.ru/abc123",
+  "title": "Example",
+  "description": "optional",
+  "clicks": 0,
+  "createdAt": "2026-05-18T00:00:00.000Z",
+  "updatedAt": "2026-05-18T00:00:00.000Z"
+}
+```
+
 ## Тесты
 
 Юнит-тесты:
