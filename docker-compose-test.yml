@@ -3,7 +3,6 @@ services:
     image: postgres:alpine
     container_name: url_shortener_test_postgres #Needs update
     restart: 'no'
-    env_file: '.env.test'
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -25,7 +24,6 @@ services:
 
   url_shortener_test_redis: #Needs update
     image: redis:alpine
-    env_file: '.env.test'
     container_name: url_shortener_test_redis #Needs update
     ports:
       - 6380:6379
