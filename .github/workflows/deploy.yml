@@ -36,6 +36,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
+            ghcr.io/${{ github.repository_owner }}/url-shortener:main
+            ghcr.io/${{ github.repository_owner }}/url-shortener:sha-${{ github.event.workflow_run.head_sha }}
             ghcr.io/${{ github.repository }}:main
             ghcr.io/${{ github.repository }}:sha-${{ github.event.workflow_run.head_sha }}
 
